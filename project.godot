@@ -10,17 +10,13 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
+config/name="Darkman Plugin"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
 project/assembly_name="New Game Project"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/darkman_plugin/plugin.cfg")
 
 [physics]
 

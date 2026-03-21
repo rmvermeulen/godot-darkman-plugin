@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c6suh60xnfnln"]
+
+[ext_resource type="Script" uid="uid://ck57810ut2kkk" path="res://addons/darkman_plugin/darkman_timer.gd" id="1_ql141"]
+
+[node name="DarkmanTimer" type="Timer" unique_id=466652036]
+wait_time = 3.0
+autostart = true
+script = ExtResource("1_ql141")
