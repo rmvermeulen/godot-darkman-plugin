@@ -1,5 +1,6 @@
 # Godot Darkman Plugin
 
+For users of [darkman](https://gitlab.com/WhyNotHugo/darkman/).
 Periodically run `darkman get` to get the current editor theme.
 
 Comes with the following settings:
