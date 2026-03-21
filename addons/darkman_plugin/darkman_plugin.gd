@@ -4,20 +4,16 @@ extends EditorPlugin
 var timer_scene := load("res://addons/darkman_plugin/darkman_timer.tscn")
 var timer = null
 
-const ROOT := "darkman_plugin"
-const PROPS := {
+const ROOT := "interface/darkman"
+const SETTINGS := {
 	# Which shell to use when calling `darkman`
 	"shell": ["sh", {
 		"type": TYPE_STRING,
 		"hint": PROPERTY_HINT_ENUM_SUGGESTION,
 		"hint_string": "sh,bash,zsh,pwsh,fish,nu",
 	}],
-	# If true, removes `darkman_plugin/*` from EditorSettings when the plugin is disabled
-	"remove_editor_settings": [true, { "type": TYPE_BOOL }],
 	# The command to run to get darkman's output
 	"cmd": ["darkman get", { "type": TYPE_STRING }],
-	# The string template to use for the button text
-	"template": ["Theme: %s", { "type": TYPE_STRING }],
 	# Interval in seconds in-between checks
 	"interval": [3, { "type": TYPE_INT }],
 	# The mode to use if anything goes wrong
@@ -31,10 +27,6 @@ const PROPS := {
 	# Which theme to use while the mode is 'Light'
 	"light_mode_theme": ["Light", { "type": TYPE_STRING }],
 }
-
-const old_settings := [
-	"silent", "template","fallback", "dark_mode", "light_mode"
-]
 
 
 static func get_setting_name(key: String) -> String:
@@ -55,8 +47,8 @@ func _enter_tree() -> void:
 	_update_settings()
 	var settings := EditorInterface.get_editor_settings()
 	settings.settings_changed.connect(_update_settings)
-	for key in PROPS.keys():
-		var items = PROPS[key]
+	for key in SETTINGS.keys():
+		var items = SETTINGS[key]
 		var value = items[0]
 		var info = items[1].duplicate()
 		info.name = get_setting_name(key)
@@ -64,9 +56,6 @@ func _enter_tree() -> void:
 			continue
 		settings.set(info.name, value)
 		settings.add_property_info(info)
-	for key in old_settings:
-		if settings.has_setting(get_setting_name(key)):
-			settings.erase(get_setting_name(key))
 
 
 func _exit_tree() -> void:
@@ -76,11 +65,6 @@ func _exit_tree() -> void:
 	timer.stop()
 	timer.queue_free()
 	timer = null
-	var key := get_setting_name("remove_editor_settings")
-	var remove_editor_settings := settings.has_setting(key) && settings.get_setting(key) as bool
-	if remove_editor_settings:
-		for setting in PROPS.keys():
-			settings.erase(get_setting_name(setting))
 
 
 func _update_settings():
