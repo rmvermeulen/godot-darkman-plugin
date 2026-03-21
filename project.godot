@@ -14,9 +14,10 @@ config/name="Darkman Plugin"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
-[dotnet]
 
-project/assembly_name="New Game Project"
+[editor_overrides]
+
+pretty-gd/excluded_paths=""
 
 [editor_plugins]
 
